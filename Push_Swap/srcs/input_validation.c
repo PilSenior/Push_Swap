@@ -22,28 +22,42 @@ static int is_within_int_limits(long num)
 */
 int *ft_atoi_check(const char *str, int *error)
 {
-    int *num;
     long result;
-    
+    int sign;
+    int *num;
+
+    result = 0;
+    sign = 1;
+    while (*str == ' ' || (*str >= 9 && *str <= 13))
+        str++;
+    if (*str == '-' || *str == '+')
+    {
+        if (*str == '-')
+            sign = -1;
+        str++;
+    }
     if (!*str)
-    {
         *error = 1;
-        return (NULL);
-    }
-    result = ft_atoi(str);
-    if (!check_the_string(str, error))
-        return (NULL);
-    if (!is_within_int_limits(result))
+    while (*str)
     {
-        *error = 1;
-        return (NULL);
+        if (*str < '0' || *str > '9')
+        {
+            *error = 1;
+            return (NULL);
+        }
+        result = result * 10 + (*str - '0');
+        if (!is_within_int_limits(result * sign))
+        {
+            *error = 1;
+            return (NULL);
+        }
+        str++;
     }
-    if (!(num = (int *)malloc(sizeof(int))))
-    {
+    num = (int *)malloc(sizeof(int));
+    if (!num)
         *error = 1;
-        return (NULL);
-    }
-    *num = (int)result;
+    else
+        *num = (int)(result * sign);
     return (num);
 }
 
@@ -104,61 +118,58 @@ static char **split_args(int argc, char **argv)
 }
 
 /*
-** Yardımcı fonksiyon - argümanları işler ve stack'e ekler
-*/
-static t_stack *process_args(char **args, int *size, int *error)
-{
-    t_stack *stack;
-    t_stack *new;
-    int *num;
-    int i;
-
-    stack = NULL;
-    i = 0;
-    *size = 0;
-    while (args[i])
-    {
-        num = ft_atoi_check(args[i], error);
-        if (*error)
-        {
-            stack_clear(&stack);
-            return (free(num),NULL);
-        }
-        new = stack_new(*num);
-        free(num);
-        if (!new) 
-            return (stack_clear(&stack),NULL);
-        stack_add_back(&stack, new);
-        (*size)++;
-        i++;
-    }
-    return (stack);
-}
-
-/*
-** Ana fonksiyon
+** Argümanları parse eder ve stack'i oluşturur
 */
 t_stack *parse_args(int argc, char **argv, int *size)
 {
     char **args;
     t_stack *stack;
-    int error;
+    t_stack *new;
     int i;
+    int error;
+    int *num;
 
     if (argc < 2)
         exit(0);
-        
     args = split_args(argc, argv);
     if (!args)
         error_exit();
-    error = 0;
-    stack = process_args(args, size, &error);
+    stack = NULL;
+    i = 0;
+    *size = 0;
+    while (args[i])
+    {
+        error = 0;
+        num = ft_atoi_check(args[i], &error);
+        if (error)
+        {
+            stack_clear(&stack);
+            free(num);
+            i = 0;
+            while (args[i])
+                free(args[i++]);
+            free(args);
+            error_exit();
+        }
+        new = stack_new(*num);
+        free(num);
+        if (!new)
+        {
+            stack_clear(&stack);
+            i = 0;
+            while (args[i])
+                free(args[i++]);
+            free(args);
+            error_exit();
+        }
+        stack_add_back(&stack, new);
+        (*size)++;
+        i++;
+    }
     i = 0;
     while (args[i])
         free(args[i++]);
     free(args);
-    if (error || !stack)
-        error_exit();
     if (check_duplicates(stack))
     {
         stack_clear(&stack);

@@ -1,23 +1,5 @@
 #include "../includes/push_swap.h"
 
-
-int check_the_string(const char *str, int *error)
-{
-            while (*str == ' ' || (*str >= 9 && *str <= 13))
-        str++;
-    if (*str == '+' || *str == '-')
-        str++;
-    while (*str)
-    {
-        if (*str < '0' || *str > '9')
-        {
-            *error = 1;
-            return (0);
-        }
-        str++;
-    }
-    return(1);
-}
 /*
 ** Yeni bir stack node'u oluşturur ve değerini atar
 */

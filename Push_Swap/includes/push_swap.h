@@ -67,5 +67,3 @@ void stack_swap(t_stack **stack);
 void stack_push(t_stack **dest, t_stack **src);
 void stack_rotate(t_stack **stack);
 void stack_reverse_rotate(t_stack **stack);
-int check_the_string(const char *str, int *error);
-
