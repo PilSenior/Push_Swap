@@ -1,168 +1,151 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input_validation.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: htekdemi <htekdemi@student.42kocaeli.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/20 20:07:49 by htekdemi          #+#    #+#             */
+/*   Updated: 2025/04/20 20:07:49 by htekdemi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/push_swap.h"
 
-/*
-** Hata mesajı yazdırıp programı sonlandırır
-*/
-void error_exit(void)
+void	error_exit(void)
 {
-    write(2, "Error\n", 6);
-    exit(1);
+	write(2, "Error\n", 6);
+	exit(1);
 }
 
-/*
-** Sayının integer sınırları içinde olup olmadığını kontrol eder
-*/
-static int is_within_int_limits(long num)
+int	*ft_atoi_check(const char *str, int *error)
 {
-    return (num >= INT_MIN && num <= INT_MAX);
+	int		*num;
+	long	result;
+
+	if (!*str)
+	{
+		*error = 1;
+		return (NULL);
+	}
+	result = ft_atoi(str);
+	if (!check_the_string(str, error))
+		return (NULL);
+	if (!is_within_int_limits(result))
+	{
+		*error = 1;
+		return (NULL);
+	}
+	num = (int *)malloc(sizeof(int));
+	if (!num)
+	{
+		*error = 1;
+		return (NULL);
+	}
+	*num = (int)result;
+	return (num);
 }
 
-/*
-** String'i integer'a çevirir, hata durumunda error parametresini 1 yapar
-*/
-int *ft_atoi_check(const char *str, int *error)
+int	check_duplicates(t_stack *stack)
 {
-    int *num;
-    long result;
-    
-    if (!*str)
-    {
-        *error = 1;
-        return (NULL);
-    }
-    result = ft_atoi(str);
-    if (!check_the_string(str, error))
-        return (NULL);
-    if (!is_within_int_limits(result))
-    {
-        *error = 1;
-        return (NULL);
-    }
-    if (!(num = (int *)malloc(sizeof(int))))
-    {
-        *error = 1;
-        return (NULL);
-    }
-    *num = (int)result;
-    return (num);
+	t_stack	*current;
+	t_stack	*check;
+
+	current = stack;
+	while (current)
+	{
+		check = current->next;
+		while (check)
+		{
+			if (current->value == check->value)
+				return (1);
+			check = check->next;
+		}
+		current = current->next;
+	}
+	return (0);
 }
 
-/*
-** Stack'te aynı değere sahip eleman olup olmadığını kontrol eder
-*/
-int check_duplicates(t_stack *stack)
+static char	**split_args(int argc, char **argv)
 {
-    t_stack *current;
-    t_stack *check;
+	char	**args;
+	int		i;
 
-    current = stack;
-    while (current)
-    {
-        check = current->next;
-        while (check)
-        {
-            if (current->value == check->value)
-                return (1);
-            check = check->next;
-        }
-        current = current->next;
-    }
-    return (0);
+	if (argc == 2)
+		return (ft_split(argv[1], ' '));
+	args = (char **)malloc(sizeof(char *) * argc);
+	if (!args)
+		error_exit();
+	i = 0;
+	while (i < argc - 1)
+	{
+		args[i] = ft_strdup(argv[i + 1]);
+		if (!args[i])
+		{
+			while (i > 0)
+				free(args[--i]);
+			free(args);
+			error_exit();
+		}
+		i++;
+	}
+	args[i] = NULL;
+	return (args);
 }
 
-/*
-** Argümanları parçalara ayırır (boşluklara göre)
-** ft_split libft'den gelir
-*/
-static char **split_args(int argc, char **argv)
+static t_stack	*process_args(char **args, int *size, int *error)
 {
-    char **args;
-    
-    if (argc == 2)
-        args = ft_split(argv[1], ' ');
-    else
-    {
-        int i = 0;
-        args = (char **)malloc(sizeof(char *) * argc);
-        if (!args)
-            error_exit();
-        while (i < argc - 1)
-        {
-            args[i] = ft_strdup(argv[i + 1]);
-            if (!args[i])
-            {
-                while (i > 0)
-                    free(args[--i]);
-                free(args);
-                error_exit();
-            }
-            i++;
-        }
-        args[i] = NULL;
-    }
-    return (args);
+	t_stack	*stack;
+	t_stack	*new;
+	int		*num;
+	int		i;
+
+	stack = NULL;
+	i = 0;
+	*size = 0;
+	while (args[i])
+	{
+		num = ft_atoi_check(args[i], error);
+		if (*error)
+		{
+			stack_clear(&stack);
+			return (free(num), NULL);
+		}
+		new = stack_new(*num);
+		free(num);
+		if (!new)
+			return (stack_clear(&stack), NULL);
+		stack_add_back(&stack, new);
+		(*size)++;
+		i++;
+	}
+	return (stack);
 }
 
-/*
-** Yardımcı fonksiyon - argümanları işler ve stack'e ekler
-*/
-static t_stack *process_args(char **args, int *size, int *error)
+t_stack	*parse_args(int argc, char **argv, int *size)
 {
-    t_stack *stack;
-    t_stack *new;
-    int *num;
-    int i;
+	char	**args;
+	t_stack	*stack;
+	int		error;
+	int		i;
 
-    stack = NULL;
-    i = 0;
-    *size = 0;
-    while (args[i])
-    {
-        num = ft_atoi_check(args[i], error);
-        if (*error)
-        {
-            stack_clear(&stack);
-            return (free(num),NULL);
-        }
-        new = stack_new(*num);
-        free(num);
-        if (!new) 
-            return (stack_clear(&stack),NULL);
-        stack_add_back(&stack, new);
-        (*size)++;
-        i++;
-    }
-    return (stack);
-}
-
-/*
-** Ana fonksiyon
-*/
-t_stack *parse_args(int argc, char **argv, int *size)
-{
-    char **args;
-    t_stack *stack;
-    int error;
-    int i;
-
-    if (argc < 2)
-        exit(0);
-        
-    args = split_args(argc, argv);
-    if (!args)
-        error_exit();
-    error = 0;
-    stack = process_args(args, size, &error);
-    i = 0;
-    while (args[i])
-        free(args[i++]);
-    free(args);
-    if (error || !stack)
-        error_exit();
-    if (check_duplicates(stack))
-    {
-        stack_clear(&stack);
-        error_exit();
-    }
-    return (stack);
+	if (argc < 2)
+		exit(0);
+	args = split_args(argc, argv);
+	if (!args)
+		error_exit();
+	error = 0;
+	stack = process_args(args, size, &error);
+	i = 0;
+	while (args[i])
+		free(args[i++]);
+	free(args);
+	if (error || !stack)
+		error_exit();
+	if (check_duplicates(stack))
+	{
+		stack_clear(&stack);
+		error_exit();
+	}
+	return (stack);
 }

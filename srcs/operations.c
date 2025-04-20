@@ -1,9 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   operations.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: htekdemi <htekdemi@student.42kocaeli.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/20 20:11:56 by htekdemi          #+#    #+#             */
+/*   Updated: 2025/04/20 20:11:56 by htekdemi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/push_swap.h"
 
-/*
-** sa - swap a: Stack a'nın üstündeki ilk iki elemanı yer değiştirir
-** Eğer print 1 ise, komutu ekrana yazdırır
-*/
 void sa(t_stack **stack_a, int print)
 {
     if (!stack_a || !*stack_a || !(*stack_a)->next)
@@ -13,10 +21,6 @@ void sa(t_stack **stack_a, int print)
         write(1, "sa\n", 3);
 }
 
-/*
-** sb - swap b: Stack b'nin üstündeki ilk iki elemanı yer değiştirir
-** Eğer print 1 ise, komutu ekrana yazdırır
-*/
 void sb(t_stack **stack_b, int print)
 {
     if (!stack_b || !*stack_b || !(*stack_b)->next)
@@ -26,10 +30,6 @@ void sb(t_stack **stack_b, int print)
         write(1, "sb\n", 3);
 }
 
-/*
-** ss - sa ve sb'yi aynı anda yapar
-** Eğer print 1 ise, komutu ekrana yazdırır
-*/
 void ss(t_stack **stack_a, t_stack **stack_b, int print)
 {
     if ((!stack_a || !*stack_a || !(*stack_a)->next) && 

@@ -1,10 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   operations_rotate.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: htekdemi <htekdemi@student.42kocaeli.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/20 20:11:51 by htekdemi          #+#    #+#             */
+/*   Updated: 2025/04/20 20:11:51 by htekdemi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/push_swap.h"
 
-/*
-** ra - rotate a: Stack a'nın tüm elemanlarını yukarı kaydırır
-** İlk eleman son olur
-** Eğer print 1 ise, komutu ekrana yazdırır
-*/
 void ra(t_stack **stack_a, int print)
 {
     if (!stack_a || !*stack_a || !(*stack_a)->next)
@@ -14,11 +21,6 @@ void ra(t_stack **stack_a, int print)
         write(1, "ra\n", 3);
 }
 
-/*
-** rb - rotate b: Stack b'nin tüm elemanlarını yukarı kaydırır
-** İlk eleman son olur
-** Eğer print 1 ise, komutu ekrana yazdırır
-*/
 void rb(t_stack **stack_b, int print)
 {
     if (!stack_b || !*stack_b || !(*stack_b)->next)
@@ -28,10 +30,6 @@ void rb(t_stack **stack_b, int print)
         write(1, "rb\n", 3);
 }
 
-/*
-** rr - ra ve rb komutlarını aynı anda yapar
-** Eğer print 1 ise, komutu ekrana yazdırır
-*/
 void rr(t_stack **stack_a, t_stack **stack_b, int print)
 {
     if ((!stack_a || !*stack_a || !(*stack_a)->next) && 

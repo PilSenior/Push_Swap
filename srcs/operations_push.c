@@ -1,9 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   operations_push.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: htekdemi <htekdemi@student.42kocaeli.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/20 20:11:25 by htekdemi          #+#    #+#             */
+/*   Updated: 2025/04/20 20:11:25 by htekdemi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/push_swap.h"
 
-/*
-** pa - push a: stack b'nin en üstündeki elemanı stack a'ya taşır
-** Eğer print 1 ise, komutu ekrana yazdırır
-*/
 void pa(t_stack **stack_a, t_stack **stack_b, int print)
 {
     if (!stack_b || !*stack_b || !stack_a)
@@ -13,10 +21,6 @@ void pa(t_stack **stack_a, t_stack **stack_b, int print)
         write(1, "pa\n", 3);
 }
 
-/*
-** pb - push b: stack a'nın en üstündeki elemanı stack b'ye taşır
-** Eğer print 1 ise, komutu ekrana yazdırır
-*/
 void pb(t_stack **stack_a, t_stack **stack_b, int print)
 {
     if (!stack_a || !*stack_a || !stack_b)
