@@ -13,7 +13,6 @@ INCLUDES = -I. -I$(LIBFT_DIR)
 # Kaynak dosyaları
 SRC =	srcs/main.c \
 		srcs/stack_init.c \
-		srcs/stack_operation.c \
 		srcs/stack_utils.c \
 		srcs/operations.c \
 		srcs/operations_push.c \

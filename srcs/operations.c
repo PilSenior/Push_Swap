@@ -14,18 +14,34 @@
 
 void sa(t_stack **stack_a, int print)
 {
-    if (!stack_a || !*stack_a || !(*stack_a)->next)
-        return;
-    stack_swap(stack_a);
-    if (print)
+    t_stack	*second;
+    t_stack	*first;
+ 
+    if(!stack_a || !*stack_a || !(*stack_a)->next)
+            return;
+
+	first = *stack_a;
+	second = first->next;
+	first->next = second->next;
+	second->next = first;
+	*stack_a = second;
+    if(print)
         write(1, "sa\n", 3);
 }
 
 void sb(t_stack **stack_b, int print)
 {
-    if (!stack_b || !*stack_b || !(*stack_b)->next)
-        return;
-    stack_swap(stack_b);
+    t_stack	*first;
+    t_stack	*second;
+
+    if(!stack_b || !*stack_b || !(*stack_b)->next)
+            return;
+	
+    first = *stack_b;
+	second = first->next;
+	first->next = second->next;
+	second->next = first;
+	*stack_b = second;
     if (print)
         write(1, "sb\n", 3);
 }
@@ -34,9 +50,9 @@ void ss(t_stack **stack_a, t_stack **stack_b, int print)
 {
     if ((!stack_a || !*stack_a || !(*stack_a)->next) && 
         (!stack_b || !*stack_b || !(*stack_b)->next))
-        return;
-    stack_swap(stack_a);
-    stack_swap(stack_b);
+            return;
+    sa(stack_a, print);
+    sb(stack_b, print);
     if (print)
         write(1, "ss\n", 3);
 }

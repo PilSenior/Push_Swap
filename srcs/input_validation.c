@@ -31,11 +31,6 @@ int	*ft_atoi_check(const char *str, int *error)
 	result = ft_atoi(str);
 	if (!check_the_string(str, error))
 		return (NULL);
-	if (!is_within_int_limits(result))
-	{
-		*error = 1;
-		return (NULL);
-	}
 	num = (int *)malloc(sizeof(int));
 	if (!num)
 	{

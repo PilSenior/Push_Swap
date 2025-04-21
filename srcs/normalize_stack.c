@@ -12,19 +12,12 @@
 
 #include "../includes/push_swap.h"
 
-static void	swap_int(int *a, int *b)
-{
-	int	temp;
-
-	temp = *a;
-	*a = *b;
-	*b = temp;
-}
 
 static void	bubble_sort_array(int *arr, int size)
 {
 	int	i;
 	int	j;
+	int	temp;
 
 	i = 0;
 	while (i < size - 1)
@@ -33,7 +26,12 @@ static void	bubble_sort_array(int *arr, int size)
 		while (j < size - i - 1)
 		{
 			if (arr[j] > arr[j + 1])
-				swap_int(&arr[j], &arr[j + 1]);
+				{
+					temp = arr[j];
+					arr[j] = arr[j + 1];
+					arr[j + 1] = temp;
+				}
+				temp = 0;
 			j++;
 		}
 		i++;
@@ -84,33 +82,3 @@ void	normalize_stack(t_stack **stack, int size)
 	free(values);
 }
 
-int	is_normalized(t_stack *stack, int size)
-{
-	int			i;
-	t_stack		*current;
-	static int	found[10000];
-
-	i = 0;
-	while (i < size)
-		found[i++] = 0;
-	if (!stack)
-		return (1);
-	current = stack;
-	while (current)
-	{
-		if (current->value < 0 || current->value >= size)
-			return (0);
-		found[current->value]++;
-		if (found[current->value] > 1)
-			return (0);
-		current = current->next;
-	}
-	i = 0;
-	while (i < size)
-	{
-		if (found[i] != 1)
-			return (0);
-		i++;
-	}
-	return (1);
-}
