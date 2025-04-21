@@ -18,7 +18,14 @@ int	check_the_string(const char *str, int *error)
 	while (*str == ' ' || (*str >= 9 && *str <= 13))
 		str++;
 	if (*str == '+' || *str == '-')
+	{
 		str++;
+		if((*str == '0'))
+		{
+			*error = 1;
+			return (0);
+		}
+	}
 	while (*str)
 	{
 		if (*str < '0' || *str > '9')
