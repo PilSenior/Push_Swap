@@ -12,11 +12,20 @@
 
 #include "../includes/push_swap.h"
 
+void	error_exit(void)
+{
+	write(2, "Error\n", 6);
+	exit(1);
+}
+
 static void	push_swap(t_stack **stack_a, t_stack **stack_b, int size)
 {
+	int	*values;
+
+	values = 0;
 	if (is_sorted(*stack_a))
 		return ;
-	normalize_stack(stack_a, size);
+	normalize_stack(stack_a, size, values);
 	if (size == 2)
 		sort_two(stack_a);
 	else if (size == 3)

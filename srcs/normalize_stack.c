@@ -5,13 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: htekdemi <htekdemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/20 20:11:22 by htekdemi          #+#    #+#             */
-/*   Updated: 2025/04/20 20:11:22 by htekdemi         ###   ########.fr       */
+/*   Created: 2025/04/21 06:02:53 by htekdemi          #+#    #+#             */
+/*   Updated: 2025/04/21 06:02:53 by htekdemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-
 
 static void	bubble_sort_array(int *arr, int size)
 {
@@ -26,12 +25,11 @@ static void	bubble_sort_array(int *arr, int size)
 		while (j < size - i - 1)
 		{
 			if (arr[j] > arr[j + 1])
-				{
-					temp = arr[j];
-					arr[j] = arr[j + 1];
-					arr[j + 1] = temp;
-				}
-				temp = 0;
+			{
+				temp = arr[j];
+				arr[j] = arr[j + 1];
+				arr[j + 1] = temp;
+			}
 			j++;
 		}
 		i++;
@@ -52,10 +50,9 @@ static int	find_index(int *sorted_arr, int size, int value)
 	return (-1);
 }
 
-void	normalize_stack(t_stack **stack, int size)
+void	normalize_stack(t_stack **stack, int size, int *values)
 {
 	t_stack	*current;
-	int		*values;
 	int		i;
 	int		index;
 
@@ -81,4 +78,3 @@ void	normalize_stack(t_stack **stack, int size)
 	}
 	free(values);
 }
-

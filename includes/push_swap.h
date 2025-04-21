@@ -12,6 +12,13 @@ typedef struct s_stack
     struct s_stack  *next;
 } t_stack;
 
+typedef struct s_radix
+{
+    int	max_bits;
+	int	size;
+	int	num;
+} t_radix;
+
 /* Fonksiyon prototipleri */
 // Stack fonksiyonları
 t_stack    *stack_new(int value);
@@ -43,16 +50,12 @@ void       rrr(t_stack **stack_a, t_stack **stack_b, int print);
 void radix_sort(t_stack **stack_a, t_stack **stack_b);
 void simple_radix_sort(t_stack **stack_a, t_stack **stack_b);
 
-/* normalize_stack.c */
-void normalize_stack(t_stack **stack, int size);
-int is_normalized(t_stack *stack, int size);
-
 // Yardımcı fonksiyonlar
 void       error_exit(void);
 int        *ft_atoi_check(const char *str, int *error);
 int        check_duplicates(t_stack *stack);
 t_stack    *parse_args(int argc, char **argv, int *size);
-void       normalize_stack(t_stack **stack, int size);
+void	normalize_stack(t_stack **stack, int size, int *values);
 
 /* small_sort.c */
 void sort_two(t_stack **stack_a);
@@ -63,9 +66,5 @@ void sort_small(t_stack **stack_a, t_stack **stack_b, int size);
 // Add this declaration if it's missing
 
 // Stack operation functions
-void stack_swap(t_stack **stack);
-void stack_push(t_stack **dest, t_stack **src);
-void stack_rotate(t_stack **stack);
-void stack_reverse_rotate(t_stack **stack);
 int check_the_string(const char *str, int *error);
 

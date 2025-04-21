@@ -1,38 +1,20 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: htekdemi <htekdemi@student.42kocaeli.co    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/23 00:12:45 by htekdemi          #+#    #+#             */
-/*   Updated: 2024/10/23 00:12:45 by htekdemi         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-int	ft_atoi(const char *str)
+long ft_atoi(const char *str)
 {
-	int	d;
-	int	s;
+    long result;
+    int sign;
 
-	d = 1;
-	s = 0;
-	while (str[s] == 32 || (str[s] <= 13 && str[s] >= 9))
-		str++;
-	if (*str == '-')
-	{
-		d = d * -1;
-		str++;
-	}
-	else if (*str == '+')
-		str++;
-	if (*str == '-' || *str == '+')
-		return (0);
-	while (*str >= '0' && *str <= '9')
-	{
-		s = (s * 10);
-		s = s + (*str - '0');
-		str++;
-	}
-	return (s * d);
+    result = 0;
+    sign = 1;
+    while (*str == ' ' || (*str >= 9 && *str <= 13))
+        str++;
+    if (*str == '-')
+        sign = -1;
+    if (*str == '+' || *str == '-')
+        str++;
+    while (*str >= '0' && *str <= '9')
+    {
+        result = result * 10 + (*str - '0');
+        str++;
+    }
+    return (result * sign);
 }

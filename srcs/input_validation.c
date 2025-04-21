@@ -12,12 +12,6 @@
 
 #include "../includes/push_swap.h"
 
-void	error_exit(void)
-{
-	write(2, "Error\n", 6);
-	exit(1);
-}
-
 int	*ft_atoi_check(const char *str, int *error)
 {
 	int		*num;
@@ -31,6 +25,11 @@ int	*ft_atoi_check(const char *str, int *error)
 	result = ft_atoi(str);
 	if (!check_the_string(str, error))
 		return (NULL);
+	if (result > INT_MAX || result < INT_MIN)
+	{
+		*error = 1;
+		return (NULL);
+	}
 	num = (int *)malloc(sizeof(int));
 	if (!num)
 	{

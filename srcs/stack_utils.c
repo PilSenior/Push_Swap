@@ -1,26 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: htekdemi <htekdemi@student.42kocaeli.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/21 04:49:43 by htekdemi          #+#    #+#             */
+/*   Updated: 2025/04/21 04:49:43 by htekdemi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/push_swap.h"
-
-int	stack_size(t_stack *stack)
-{
-	int	size;
-
-	size = 0;
-	while (stack)
-	{
-		size++;
-		stack = stack->next;
-	}
-	return (size);
-}
-
-t_stack	*stack_last(t_stack *stack)
-{
-	if (!stack)
-		return (NULL);
-	while (stack->next)
-		stack = stack->next;
-	return (stack);
-}
 
 int	stack_min(t_stack *stack)
 {
