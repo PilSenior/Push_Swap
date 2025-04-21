@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+#include <limits.h>
+#include "../libft/libft.h"
 
 int	*ft_atoi_check(const char *str, int *error)
 {
@@ -123,8 +125,6 @@ t_stack	*parse_args(int argc, char **argv, int *size)
 	int		error;
 	int		i;
 
-	if (argc < 2)
-		exit(0);
 	args = split_args(argc, argv);
 	if (!args)
 		error_exit();

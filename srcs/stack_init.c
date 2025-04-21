@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+#include <stdlib.h>
 
 int	check_the_string(const char *str, int *error)
 {
@@ -40,14 +41,6 @@ t_stack	*stack_new(int value)
 	new->value = value;
 	new->next = NULL;
 	return (new);
-}
-
-void	stack_add_front(t_stack **stack, t_stack *new)
-{
-	if (!stack || !new)
-		return ;
-	new->next = *stack;
-	*stack = new;
 }
 
 void	stack_add_back(t_stack **stack, t_stack *new)

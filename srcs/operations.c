@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+#include <unistd.h>
 
 void	sa(t_stack **stack_a, int print)
 {

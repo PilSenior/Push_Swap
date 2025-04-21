@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+#include <unistd.h>
 
 void	pa(t_stack **stack_a, t_stack **stack_b, int print)
 {

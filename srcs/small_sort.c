@@ -91,17 +91,3 @@ void	sort_five(t_stack **stack_a, t_stack **stack_b)
 	while (stack_size(*stack_b) > 0)
 		pa(stack_a, stack_b, 1);
 }
-
-void	sort_small(t_stack **stack_a, t_stack **stack_b, int size)
-{
-	if (size <= 5)
-	{
-		sort_five(stack_a, stack_b);
-		return ;
-	}
-	while (stack_size(*stack_a) > 3)
-		push_min_to_b(stack_a, stack_b);
-	sort_three(stack_a);
-	while (stack_size(*stack_b) > 0)
-		pa(stack_a, stack_b, 1);
-}

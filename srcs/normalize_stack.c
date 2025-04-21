@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+#include <stdlib.h>
 
 static void	bubble_sort_array(int *arr, int size)
 {

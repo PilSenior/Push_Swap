@@ -12,38 +12,6 @@
 
 #include "../includes/push_swap.h"
 
-int	stack_min(t_stack *stack)
-{
-	int	min;
-
-	if (!stack)
-		return (0);
-	min = stack->value;
-	while (stack)
-	{
-		if (stack->value < min)
-			min = stack->value;
-		stack = stack->next;
-	}
-	return (min);
-}
-
-int	stack_max(t_stack *stack)
-{
-	int	max;
-
-	if (!stack)
-		return (0);
-	max = stack->value;
-	while (stack)
-	{
-		if (stack->value > max)
-			max = stack->value;
-		stack = stack->next;
-	}
-	return (max);
-}
-
 int	is_sorted(t_stack *stack)
 {
 	if (!stack)
@@ -55,21 +23,6 @@ int	is_sorted(t_stack *stack)
 		stack = stack->next;
 	}
 	return (1);
-}
-
-int	get_position(t_stack *stack, int value)
-{
-	int	pos;
-
-	pos = 0;
-	while (stack)
-	{
-		if (stack->value == value)
-			return (pos);
-		pos++;
-		stack = stack->next;
-	}
-	return (-1);
 }
 
 int	get_min_position(t_stack *stack)

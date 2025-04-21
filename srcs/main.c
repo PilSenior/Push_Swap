@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+#include <unistd.h>
+#include <stdlib.h>
 
 void	error_exit(void)
 {
